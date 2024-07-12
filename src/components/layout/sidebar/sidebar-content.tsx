@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
+import CreateWorkspace from "@/components/dialog/create-workspace";
+
 export default function SidebarContent() {
   return (
     <div className="flex flex-col gap-y-4">
       <div className="lg:px-4">
-        <Button className="w-full">New Workspace</Button>
+        <CreateWorkspace>
+          <Button className="w-full">New Workspace</Button>
+        </CreateWorkspace>
       </div>
       <ScrollArea className="h-[521px]">
         <div className="space-y-4 lg:px-4">

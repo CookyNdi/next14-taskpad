@@ -1,9 +1,10 @@
+import PageContainer from "@/components/layout/page-container/page-container";
 import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   return (
-    <div>
+    <PageContainer>
       <Button>Click me</Button>
-    </div>
+    </PageContainer>
   );
 }

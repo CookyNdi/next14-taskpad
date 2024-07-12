@@ -60,3 +60,94 @@ export const workspace = [
     id: "clydtcz3u0sdf2456safgz5cg5h8",
   },
 ];
+
+export const boardData = [
+  {
+    id: "lkdsmrlm2346l;km",
+    title: "Board 1",
+    description: "description board 1",
+    Tasks: [
+      {
+        id: "234dsf234sdf",
+        title: "Task 1",
+        status: "WIP",
+      },
+      {
+        id: "234dsf234sdf",
+        title: "Task 2",
+        status: "DONE",
+      },
+    ],
+  },
+  {
+    id: "lkdsmrlm2346l;km3",
+    title: "Board 2",
+    description: "description board 1",
+    Tasks: [
+      {
+        id: "234dsf234sdf",
+        title: "Task 1",
+        status: "WIP",
+      },
+      {
+        id: "234dsf234sdf",
+        title: "Task 2",
+        status: "DONE",
+      },
+    ],
+  },
+  {
+    id: "lkdsmrlm2346l;km23",
+    title: "Board 3",
+    description: "description board 1",
+    Tasks: [
+      {
+        id: "234dsf234sdf",
+        title: "Task 1",
+        status: "WIP",
+      },
+      {
+        id: "234dsf234sdf",
+        title: "Task 2",
+        status: "DONE",
+      },
+    ],
+  },
+  {
+    id: "lkdsmrlm234234km",
+    title: "Board 4",
+    description: "description board 1",
+    Tasks: [
+      {
+        id: "234dsf234sdf",
+        title: "Task 1",
+        status: "WIP",
+      },
+      {
+        id: "234dsf234sdf",
+        title: "Task 2",
+        status: "DONE",
+      },
+      {
+        id: "234dsf345df",
+        title: "Task 3",
+        status: "WIP",
+      },
+      {
+        id: "234dsf234sdf",
+        title: "Task 2",
+        status: "DONE",
+      },
+      {
+        id: "23235sdf",
+        title: "Task 4",
+        status: "WIP",
+      },
+      {
+        id: "234d2556dwsrf",
+        title: "Task 5",
+        status: "DONE",
+      },
+    ],
+  },
+];

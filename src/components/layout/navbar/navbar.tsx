@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 import { ToggleTheme } from "@/components/theme/toggle-theme";
+
 import Profile from "../profile/profile";
+import MobileSidebar from "../sidebar/mobile-sidebar";
 
 export default function Navbar() {
   return (
@@ -12,6 +14,7 @@ export default function Navbar() {
       <div className="flex items-center gap-x-4">
         <ToggleTheme />
         <Profile />
+        <MobileSidebar />
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ export default async function MainLayout({
     <div className="relative">
       <Navbar />
       <Sidebar />
-      <main className="min-h-[100dvh] w-full pl-[20%] pt-[60px]">
+      <main className="min-h-[100dvh] w-full pt-[60px] lg:pl-[20%]">
         {children}
       </main>
     </div>

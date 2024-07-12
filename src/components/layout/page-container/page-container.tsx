@@ -3,5 +3,5 @@ export default function PageContainer({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="w-full px-8 pt-8">{children}</div>;
+  return <div className="w-full px-4 pt-4 lg:px-8 lg:pt-8">{children}</div>;
 }

@@ -7,13 +7,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import CreateWorkspace from "@/components/dialog/create-workspace";
 import PageContainer from "@/components/layout/page-container/page-container";
 import { workspace } from "@/lib/temporary-data";
+import { currentSession } from "@/lib/auth";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await currentSession();
+  console.log(!!session);
   return (
     <PageContainer>
       <div className="flex h-full flex-col items-center justify-center gap-y-4">
         <h1 className="text-2xl font-semibold">Pick Or Create New Workspace</h1>
-        <Card className="h-[320px] w-full lg:w-[420px] p-4">
+        <Card className="h-[320px] w-full p-4 lg:w-[420px]">
           <CreateWorkspace>
             <Button className="w-full">Create New</Button>
           </CreateWorkspace>

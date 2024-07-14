@@ -29,15 +29,11 @@ export const register = async (request: z.infer<typeof RegisterSchema>) => {
       }),
     });
 
-    if (!res.ok) {
-      return { error: "Internal Server Error" };
-    }
-
     const response = (await res.json()) as ApiResponse<AccountResponse>;
     if (response.data) {
       return { success: response.message };
     } else {
-      return { error: response.message };
+      return { error: response.message ?? response.errors![0]?.message };
     }
   } catch (error) {
     return { error: "Internal Server Error" };

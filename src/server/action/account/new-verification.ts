@@ -1,26 +1,24 @@
 "use server";
-import { cookies } from "next/headers";
-
 import { env } from "@/env";
-import { type ApiResponse } from "@/type/web";
 import { type AccountResponse } from "@/type/account";
+import { type ApiResponse } from "@/type/web";
 
-export const logout = async () => {
-  const token = cookies().get("access_token");
+export const newVerification = async (token: string) => {
+  console.log({ token });
   try {
     if (token) {
-      const res = await fetch(`${env.API_URL}/api/account/current`, {
-        method: "DELETE",
+      const res = await fetch(`${env.API_URL}/api/account/verification-email`, {
+        method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: token.value,
         },
+        body: JSON.stringify({
+          token,
+        }),
       });
-
       const response = (await res.json()) as ApiResponse<AccountResponse>;
       if (response.data) {
-        cookies().delete("access_token");
         return { success: response.message };
       } else {
         return { error: response.message ?? response.errors![0]?.message };

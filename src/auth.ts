@@ -38,5 +38,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       await logout();
     },
   },
+  callbacks: {
+    async signIn({ user, account }) {
+      console.log({ user, account });
+      if (account?.provider !== "credentials") return true;
+      return true;
+    },
+  },
   ...authConfig,
 });

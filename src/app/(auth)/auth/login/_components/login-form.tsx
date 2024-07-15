@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { redirect } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +25,7 @@ import { FormError } from "@/components/layout/form-message/form-error";
 import { FormSuccess } from "@/components/layout/form-message/form-success";
 
 export default function LoginForm() {
+  const [count, setCount] = useState(3);
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
@@ -52,7 +54,6 @@ export default function LoginForm() {
             });
             setError(data.error);
           }
-          // redirect("/");
           if (data.success) {
             toast({
               title: "Success!",
@@ -64,6 +65,24 @@ export default function LoginForm() {
         .catch(() => setError("Something went wrong"));
     });
   };
+
+  useEffect(() => {
+    if (success) {
+      if (count > 0) {
+        const timer = setTimeout(() => {
+          setCount(count - 1);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [success, count]);
+
+  useEffect(() => {
+    if (count === 0) {
+      redirect("/");
+    }
+  }, [count]);
 
   return (
     <Card className="w-full lg:w-[400px]">
@@ -118,6 +137,9 @@ export default function LoginForm() {
             </div>
             <FormError message={error} />
             <FormSuccess message={success} />
+            {success && (
+              <FormSuccess message={`Authentication please wait ${count}s`} />
+            )}
             <div className="flex flex-col gap-y-2">
               <Button className="w-full">Login</Button>
             </div>

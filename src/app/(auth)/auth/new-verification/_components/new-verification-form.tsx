@@ -1,9 +1,14 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { newVerification } from "@/server/action/account/new-verification";
 import { FormError } from "@/components/layout/form-message/form-error";
 import { FormSuccess } from "@/components/layout/form-message/form-success";
@@ -44,17 +49,26 @@ export default function NewVerificationForm({
     onSubmit();
   }, [onSubmit]);
 
+  const closeWindow = () => {
+    window.close();
+  };
+
   return (
     <Card className="w-full lg:w-[400px]">
       <CardHeader>
         <CardTitle>Verification</CardTitle>
+        {success && (
+          <CardDescription>
+            Now You Can Close This Page and Login to your account!
+          </CardDescription>
+        )}
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
         <FormError message={error} />
         <FormSuccess message={success} />
-        <Link href={"/"} className="flex w-full">
-          <Button className="w-full">Back To Home</Button>
-        </Link>
+        <Button onClick={closeWindow} className="w-full">
+          Close This Window
+        </Button>
       </CardContent>
     </Card>
   );

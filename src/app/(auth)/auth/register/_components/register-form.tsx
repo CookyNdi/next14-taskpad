@@ -133,6 +133,9 @@ export default function RegisterForm() {
             </div>
             <FormError message={error} />
             <FormSuccess message={success} />
+            {success && (
+              <FormSuccess message="Please check your your email for verification!" />
+            )}
             <div className="flex flex-col gap-y-2">
               <SocialLogin />
               <Button className="w-full" type="submit" disabled={isPending}>

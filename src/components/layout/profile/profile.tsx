@@ -16,7 +16,7 @@ export default function Profile() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="cursor-pointer">
-            <AvatarImage src={"https://github.com/shadcn.png"} />
+            <AvatarImage src={"https://i.imgur.com/Xsquikt.jpeg"} />
             <AvatarFallback>{"CN"}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>

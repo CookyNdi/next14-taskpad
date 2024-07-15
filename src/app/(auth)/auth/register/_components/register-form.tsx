@@ -37,8 +37,6 @@ export default function RegisterForm() {
       name: "",
       email: "",
       password: "",
-      image_url: "url",
-      provider: "Credentials",
     },
   });
 
@@ -115,34 +113,6 @@ export default function RegisterForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="********" type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              disabled={isPending}
-              name="image_url"
-              render={({ field }) => (
-                <FormItem className="hidden">
-                  <FormLabel>Image Url</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              disabled={isPending}
-              name="provider"
-              render={({ field }) => (
-                <FormItem className="hidden">
-                  <FormLabel>Provider</FormLabel>
                   <FormControl>
                     <Input placeholder="********" type="password" {...field} />
                   </FormControl>

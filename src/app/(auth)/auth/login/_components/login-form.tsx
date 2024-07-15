@@ -3,11 +3,9 @@
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { redirect } from "next/navigation";
 import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import SocialLogin from "@/components/dialog/social-login";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -37,7 +35,6 @@ export default function LoginForm() {
     defaultValues: {
       email: "",
       password: "",
-      provider: "Credentials",
     },
   });
 
@@ -48,21 +45,21 @@ export default function LoginForm() {
     startTransition(() => {
       login(values)
         .then((data) => {
-          if (data?.error) {
+          if (data.error) {
             toast({
               title: "Error!",
               description: data.error,
             });
             setError(data.error);
           }
-          redirect("/");
-          // if (data.success) {
-          //   toast({
-          //     title: "Success!",
-          //     description: data.success,
-          //   });
-          //   setSuccess(data.success);
-          // }
+          // redirect("/");
+          if (data.success) {
+            toast({
+              title: "Success!",
+              description: data.success,
+            });
+            setSuccess(data.success);
+          }
         })
         .catch(() => setError("Something went wrong"));
     });
@@ -108,21 +105,6 @@ export default function LoginForm() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              disabled={isPending}
-              name="provider"
-              render={({ field }) => (
-                <FormItem className="hidden">
-                  <FormLabel>Provider</FormLabel>
-                  <FormControl>
-                    <Input placeholder="********" type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <div className="flex justify-between">
               <Link href={"/auth/register"} className="text-sm underline">
                 Dont have account?
@@ -137,7 +119,6 @@ export default function LoginForm() {
             <FormError message={error} />
             <FormSuccess message={success} />
             <div className="flex flex-col gap-y-2">
-              <SocialLogin />
               <Button className="w-full">Login</Button>
             </div>
           </form>

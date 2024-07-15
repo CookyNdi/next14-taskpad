@@ -2,7 +2,6 @@
 
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { signIn } from "next-auth/react";
 
 import {
   Dialog,
@@ -14,14 +13,6 @@ import {
 import { Button } from "../ui/button";
 
 export default function SocialLogin() {
-  const signInHandler = async (provider: "Github" | "Google") => {
-    if (provider === "Github") {
-      await signIn("github", { callbackUrl: "/" });
-    } else if (provider === "Google") {
-      await signIn("google", { callbackUrl: "/" });
-    }
-  };
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -33,12 +24,12 @@ export default function SocialLogin() {
         <DialogHeader>
           <DialogTitle>Another Option</DialogTitle>
         </DialogHeader>
-        <Button onClick={() => signInHandler("Google")}>
+        <Button>
           <div className="flex items-center gap-x-2">
             <FcGoogle size={20} /> Google
           </div>
         </Button>
-        <Button onClick={() => signInHandler("Github")}>
+        <Button>
           <div className="flex items-center gap-x-2">
             <FaGithub size={20} /> Github
           </div>

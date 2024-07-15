@@ -11,7 +11,7 @@ export const register = async (request: z.infer<typeof RegisterSchema>) => {
   if (!requestValidation.success) {
     return { error: "Invalid request!" };
   }
-  const { name, email, password, image_url, provider } = requestValidation.data;
+  const { name, email, password } = requestValidation.data;
 
   try {
     const res = await fetch(`${env.API_URL}/api/account`, {
@@ -24,8 +24,6 @@ export const register = async (request: z.infer<typeof RegisterSchema>) => {
         name,
         email,
         password,
-        image_url,
-        provider,
       }),
     });
 

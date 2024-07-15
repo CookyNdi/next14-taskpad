@@ -11,8 +11,6 @@ export const RegisterSchema = z.object({
   password: z.string().min(8, {
     message: "Password must be 8 characters long!",
   }),
-  image_url: z.string().min(1).max(256),
-  provider: z.string().min(1),
 });
 
 export const LoginSchema = z.object({
@@ -25,5 +23,4 @@ export const LoginSchema = z.object({
   password: z.string().min(8, {
     message: "Password must be 8 characters long!",
   }),
-  provider: z.string().min(1),
 });

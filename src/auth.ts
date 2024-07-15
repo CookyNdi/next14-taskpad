@@ -8,30 +8,34 @@ import { logout } from "./server/action/account/logout";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   events: {
-    async signIn({ user }) {
-      const existingAccount = await GetAccountByEmail(user.email!);
-      if (!existingAccount.success) {
-        await register({
-          email: user.email!,
-          image_url: user.image!,
-          name: user.name!,
-          password: "********",
-          provider: "Oauth",
-        }).then(async (data) => {
-          if (data.success) {
+    async signIn({ user, account }) {
+      if (account) {
+        if (account.provider !== "credentials") {
+          const existingAccount = await GetAccountByEmail(user.email!);
+          if (!existingAccount.success) {
+            await register({
+              email: user.email!,
+              image_url: user.image!,
+              name: user.name!,
+              password: "********",
+              provider: "Oauth",
+            }).then(async (data) => {
+              if (data.success) {
+                await login({
+                  email: user.email!,
+                  password: "********",
+                  provider: "Oauth",
+                });
+              }
+            });
+          } else {
             await login({
               email: user.email!,
               password: "********",
               provider: "Oauth",
             });
           }
-        });
-      } else {
-        await login({
-          email: user.email!,
-          password: "********",
-          provider: "Oauth",
-        });
+        }
       }
     },
     signOut: async function () {
@@ -44,6 +48,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider !== "credentials") return true;
       return true;
     },
+    async jwt({ token, account, user }) {
+      console.log({ token, account, user });
+      token.token = user.token
+      return token;
+    },
+  },
+  session: { strategy: "jwt" },
+  pages: {
+    signIn: "/auth/login",
   },
   ...authConfig,
 });

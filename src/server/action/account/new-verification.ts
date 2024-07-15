@@ -1,6 +1,6 @@
 "use server";
 import { env } from "@/env";
-import { type AccountResponse } from "@/type/account";
+import { type Account } from "@/type/account";
 import { type ApiResponse } from "@/type/web";
 
 export const newVerification = async (token: string) => {
@@ -17,7 +17,7 @@ export const newVerification = async (token: string) => {
           token,
         }),
       });
-      const response = (await res.json()) as ApiResponse<AccountResponse>;
+      const response = (await res.json()) as ApiResponse<Account>;
       if (response.data) {
         return { success: response.message };
       } else {

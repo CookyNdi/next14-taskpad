@@ -2,7 +2,7 @@
 
 import { env } from "@/env";
 import { type ApiResponse } from "@/type/web";
-import { type AccountResponse } from "@/type/account";
+import { type Account } from "@/type/account";
 
 export const GetAccountByEmail = async (email: string) => {
   try {
@@ -18,7 +18,7 @@ export const GetAccountByEmail = async (email: string) => {
       return { error: "Internal Server Error" };
     }
 
-    const response = (await res.json()) as ApiResponse<AccountResponse>;
+    const response = (await res.json()) as ApiResponse<Account>;
     if (response.data) {
       return { success: response.data.email };
     } else {

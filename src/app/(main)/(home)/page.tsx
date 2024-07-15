@@ -11,7 +11,7 @@ import { currentSession } from "@/lib/auth";
 
 export default async function HomePage() {
   const session = await currentSession();
-  console.log(!!session);
+  console.log({ login: !!session, user: session?.user });
   return (
     <PageContainer>
       <div className="flex h-full flex-col items-center justify-center gap-y-4">

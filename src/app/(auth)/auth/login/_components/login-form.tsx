@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { redirect } from "next/navigation";
 import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -47,20 +48,21 @@ export default function LoginForm() {
     startTransition(() => {
       login(values)
         .then((data) => {
-          if (data.error) {
+          if (data?.error) {
             toast({
               title: "Error!",
               description: data.error,
             });
             setError(data.error);
           }
-          if (data.success) {
-            toast({
-              title: "Success!",
-              description: data.success,
-            });
-            setSuccess(data.success);
-          }
+          redirect("/");
+          // if (data.success) {
+          //   toast({
+          //     title: "Success!",
+          //     description: data.success,
+          //   });
+          //   setSuccess(data.success);
+          // }
         })
         .catch(() => setError("Something went wrong"));
     });

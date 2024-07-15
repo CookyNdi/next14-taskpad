@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 import { env } from "@/env";
 import { type ApiResponse } from "@/type/web";
-import { type AccountResponse } from "@/type/account";
+import { type Account } from "@/type/account";
 
 export const logout = async () => {
   const token = cookies().get("access_token");
@@ -18,9 +18,10 @@ export const logout = async () => {
         },
       });
 
-      const response = (await res.json()) as ApiResponse<AccountResponse>;
+      const response = (await res.json()) as ApiResponse<Account>;
       if (response.data) {
         cookies().delete("access_token");
+        console.log("logout", response.message);
         return { success: response.message };
       } else {
         return { error: response.message ?? response.errors![0]?.message };

@@ -4,7 +4,7 @@ import type * as z from "zod";
 import { env } from "@/env";
 import { RegisterSchema } from "@/schema/account";
 import { type ApiResponse } from "@/type/web";
-import { type AccountResponse } from "@/type/account";
+import { type Account } from "@/type/account";
 
 export const register = async (request: z.infer<typeof RegisterSchema>) => {
   const requestValidation = RegisterSchema.safeParse(request);
@@ -29,7 +29,7 @@ export const register = async (request: z.infer<typeof RegisterSchema>) => {
       }),
     });
 
-    const response = (await res.json()) as ApiResponse<AccountResponse>;
+    const response = (await res.json()) as ApiResponse<Account>;
     if (response.data) {
       return { success: response.message };
     } else {

@@ -45,14 +45,14 @@ export default function Profile({ session }: ProfileProps) {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="cursor-pointer">
-            <AvatarImage src={"https://i.imgur.com/Xsquikt.jpeg"} />
-            <AvatarFallback>{"CN"}</AvatarFallback>
+            <AvatarImage src={session.image_url ?? ""} />
+            <AvatarFallback>{session.name.slice(0, 2)}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="z-[120] w-56" align="end">
           <DropdownMenuLabel>{session.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <Link href={"/p/CookyNdi"}>
+          <Link href={"/settings"}>
             <DropdownMenuItem className="cursor-pointer">
               Profile
             </DropdownMenuItem>

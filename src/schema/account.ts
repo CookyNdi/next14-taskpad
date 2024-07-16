@@ -24,3 +24,7 @@ export const LoginSchema = z.object({
     message: "Password must be 8 characters long!",
   }),
 });
+
+export const ChangeAccountNameSchema = z.object({
+  name: z.string().min(1).max(100),
+});

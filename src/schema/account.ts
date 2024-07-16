@@ -32,3 +32,21 @@ export const ChangeAccountNameSchema = z.object({
 export const ChangeAccountAvatarSchema = z.object({
   image_url: z.string().min(1).max(100),
 });
+
+export const ChangeAccountEmailSchema = z.object({
+  email: z
+    .string()
+    .regex(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, {
+      message: "Please enter a valid email address.",
+    })
+    .regex(/^[^\s]+$/, { message: "Email must not contain spaces." }),
+  old_email: z
+    .string()
+    .regex(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, {
+      message: "Please enter a valid email address.",
+    })
+    .regex(/^[^\s]+$/, { message: "Email must not contain spaces." }),
+  password: z.string().min(8, {
+    message: "Password must be 8 characters long!",
+  }),
+});

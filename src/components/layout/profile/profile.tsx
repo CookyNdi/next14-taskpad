@@ -28,6 +28,9 @@ export default function Profile({ session }: ProfileProps) {
           title: "Success!",
           description: data.success,
         });
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
       }
       if (data?.error) {
         toast({

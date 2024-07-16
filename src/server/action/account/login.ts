@@ -6,8 +6,7 @@ import { LoginSchema } from "@/schema/account";
 import { env } from "@/env";
 import { type ApiResponse } from "@/type/web";
 import { type Account } from "@/type/account";
-import { createAuthAccount } from "@/lib/jwt";
-import { GetCurrentLogin } from "./current-login";
+import { setAuthAccountCookies } from "@/lib/cookies";
 
 export const login = async (request: z.infer<typeof LoginSchema>) => {
   const requestValidation = LoginSchema.safeParse(request);
@@ -32,23 +31,13 @@ export const login = async (request: z.infer<typeof LoginSchema>) => {
     const response = (await res.json()) as ApiResponse<Account>;
     if (response.data) {
       const oneWeek = 7 * 24 * 60 * 60 * 1000;
-      const neverExpired = 365 * 100 * 24 * 60 * 60 * 1000;
       cookies().set("access_token", response.data.token, {
         secure: true,
         httpOnly: true,
         sameSite: "strict",
         expires: Date.now() + oneWeek,
       });
-      const account = await GetCurrentLogin(response.data.token);
-      if (account) {
-        const authAccount = createAuthAccount(account);
-        cookies().set("auth-account", authAccount, {
-          secure: true,
-          httpOnly: true,
-          sameSite: "strict",
-          expires: Date.now() + neverExpired,
-        });
-      }
+      await setAuthAccountCookies(response.data.token);
       return { success: response.message };
     } else {
       return { error: response.message ?? response.errors![0]?.message };

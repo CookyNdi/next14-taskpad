@@ -19,12 +19,12 @@ export const logout = async () => {
       });
 
       const response = (await res.json()) as ApiResponse<Account>;
-      if (response.data) {
+      if (response.message) {
         cookies().delete("access_token");
-        console.log("logout", response.message);
+        cookies().delete("auth-account");
         return { success: response.message };
       } else {
-        return { error: response.message ?? response.errors![0]?.message };
+        return { error: response.errors![0]?.message };
       }
     }
   } catch (error) {

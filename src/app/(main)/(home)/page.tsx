@@ -7,8 +7,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import CreateWorkspace from "@/components/dialog/create-workspace";
 import PageContainer from "@/components/layout/page-container/page-container";
 import { workspace } from "@/lib/temporary-data";
+import { getSession } from "@/lib/session";
 
 export default async function HomePage() {
+  const session = await getSession();
+  console.log({ session });
   return (
     <PageContainer>
       <div className="flex h-full flex-col items-center justify-center gap-y-4">

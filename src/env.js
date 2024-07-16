@@ -14,6 +14,7 @@ export const env = createEnv({
     GITHUB_CLIENT_ID: z.string(),
     GITHUB_CLIENT_SECRET: z.string(),
     API_URL: z.string(),
+    JWT_SECRET: z.string(),
   },
 
   /**
@@ -37,6 +38,7 @@ export const env = createEnv({
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
     API_URL: process.env.API_URL,
+    JWT_SECRET: process.env.JWT_SECRET,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

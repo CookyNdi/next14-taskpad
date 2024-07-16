@@ -15,10 +15,12 @@ export function middleware(request: NextRequest) {
       isLoggedIn = true;
     }
   }
-
+  // TODO : Fixing middleware
+  console.log(nextUrl.pathname);
   const isUploadthingRoute = apiUploadthingPrefix.startsWith(nextUrl.pathname);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  console.log({ isLoggedIn, isUploadthingRoute, isAuthRoute, isPublicRoute });
 
   if (isUploadthingRoute) {
     return null;

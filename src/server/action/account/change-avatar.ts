@@ -1,6 +1,6 @@
 "use server";
 
-import { ChangeAccountNameSchema } from "@/schema/account";
+import { ChangeAccountAvatarSchema } from "@/schema/account";
 import type * as z from "zod";
 
 import { env } from "@/env";
@@ -9,20 +9,20 @@ import { type Account } from "@/type/account";
 import { cookies } from "next/headers";
 import { setAuthAccountCookies } from "@/lib/cookies";
 
-export const changeAccountName = async (
-  request: z.infer<typeof ChangeAccountNameSchema>,
+export const changeAccountAvatar = async (
+  request: z.infer<typeof ChangeAccountAvatarSchema>,
 ) => {
-  const requestValidation = ChangeAccountNameSchema.safeParse(request);
+  const requestValidation = ChangeAccountAvatarSchema.safeParse(request);
   if (!requestValidation.success) {
     return { error: "Invalid request!" };
   }
-  const { name } = requestValidation.data;
+  const { image_url } = requestValidation.data;
 
   const token = cookies().get("access_token");
 
   if (token) {
     try {
-      const res = await fetch(`${env.API_URL}/api/account/change-name`, {
+      const res = await fetch(`${env.API_URL}/api/account/avatar`, {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -30,7 +30,7 @@ export const changeAccountName = async (
           Authorization: token.value,
         },
         body: JSON.stringify({
-          name,
+          image_url,
         }),
       });
 

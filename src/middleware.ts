@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from "./routes";
+import {
+  apiUploadthingPrefix,
+  authRoutes,
+  DEFAULT_LOGIN_REDIRECT,
+  publicRoutes,
+} from "./routes";
 
 export function middleware(request: NextRequest) {
   const { nextUrl, cookies } = request;
@@ -11,8 +16,13 @@ export function middleware(request: NextRequest) {
     }
   }
 
+  const isUploadthingRoute = apiUploadthingPrefix.startsWith(nextUrl.pathname);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+
+  if (isUploadthingRoute) {
+    return null;
+  }
 
   if (isAuthRoute) {
     if (isLoggedIn) {

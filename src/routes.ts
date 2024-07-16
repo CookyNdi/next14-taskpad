@@ -8,6 +8,6 @@ export const authRoutes = [
   "/auth/new-password",
 ];
 
-export const apiAuthPrefix = "/api/auth";
+export const apiUploadthingPrefix = "/api/uploadthing";
 
 export const DEFAULT_LOGIN_REDIRECT = "/";

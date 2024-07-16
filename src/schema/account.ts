@@ -28,3 +28,7 @@ export const LoginSchema = z.object({
 export const ChangeAccountNameSchema = z.object({
   name: z.string().min(1).max(100),
 });
+
+export const ChangeAccountAvatarSchema = z.object({
+  image_url: z.string().min(1).max(100),
+});

@@ -5,7 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import type * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,12 +23,15 @@ import { LoginSchema } from "@/schema/account";
 import { login } from "@/server/action/account/login";
 import { FormError } from "@/components/layout/form-message/form-error";
 import { FormSuccess } from "@/components/layout/form-message/form-success";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export default function LoginForm() {
   const [count, setCount] = useState(3);
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const { toast } = useToast();
 
@@ -79,8 +82,9 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (count === 0) {
-      redirect("/");
+      redirect(callbackUrl ?? DEFAULT_LOGIN_REDIRECT);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
 
   return (

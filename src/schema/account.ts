@@ -46,6 +46,10 @@ export const ChangeAccountEmailSchema = z.object({
       message: "Please enter a valid email address.",
     })
     .regex(/^[^\s]+$/, { message: "Email must not contain spaces." }),
+  email_verification_token: z
+    .string()
+    .min(1, { message: "Please input valid token!" })
+    .max(100),
   password: z.string().min(8, {
     message: "Password must be 8 characters long!",
   }),

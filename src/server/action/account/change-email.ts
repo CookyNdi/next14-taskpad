@@ -16,7 +16,8 @@ export const changeAccountEmail = async (
   if (!requestValidation.success) {
     return { error: "Invalid request!" };
   }
-  const { email, old_email, password } = requestValidation.data;
+  const { email, old_email, password, email_verification_token } =
+    requestValidation.data;
 
   const token = cookies().get("access_token");
 
@@ -33,6 +34,7 @@ export const changeAccountEmail = async (
           email,
           old_email,
           password,
+          email_verification_token,
         }),
       });
 

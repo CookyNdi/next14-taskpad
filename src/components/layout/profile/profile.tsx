@@ -52,7 +52,7 @@ export default function Profile({ session }: ProfileProps) {
         <DropdownMenuContent className="z-[120] w-56" align="end">
           <DropdownMenuLabel>{session.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <Link href={"/settings"}>
+          <Link href={"/settings/general"}>
             <DropdownMenuItem className="cursor-pointer">
               Profile
             </DropdownMenuItem>

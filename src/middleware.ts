@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import {
-  apiUploadthingPrefix,
+  apiRoute,
   authRoutes,
   DEFAULT_LOGIN_REDIRECT,
   publicRoutes,
@@ -15,14 +15,13 @@ export function middleware(request: NextRequest) {
       isLoggedIn = true;
     }
   }
-  // TODO : Fixing middleware
-  console.log(nextUrl.pathname);
-  const isUploadthingRoute = apiUploadthingPrefix.startsWith(nextUrl.pathname);
+
+  const isApiRoute = nextUrl.pathname.split("/").includes(apiRoute);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-  console.log({ isLoggedIn, isUploadthingRoute, isAuthRoute, isPublicRoute });
+  // console.log({ isLoggedIn, isApiRoute, isAuthRoute, isPublicRoute });
 
-  if (isUploadthingRoute) {
+  if (isApiRoute) {
     return null;
   }
 

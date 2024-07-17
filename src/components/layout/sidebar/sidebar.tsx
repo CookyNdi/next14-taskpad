@@ -7,7 +7,7 @@ type SidebarProps = {
 
 export default async function Sidebar({ workspace }: SidebarProps) {
   return (
-    <div className="fixed left-0 hidden h-[100dvh] w-[20%] flex-col border-r bg-background pt-[68px] lg:flex">
+    <div className="fixed left-0 hidden h-[100dvh] w-[20%] flex-col border-r bg-background pt-[60px] lg:flex">
       <SidebarContent workspace={workspace} />
     </div>
   );

@@ -15,7 +15,7 @@ export default async function MobileSidebar({ workspace }: MobileSidebar) {
       <SheetTrigger asChild className="flex lg:hidden">
         <AlignJustify />
       </SheetTrigger>
-      <SheetContent className="z-[125] pt-12">
+      <SheetContent className="z-[125] pt-12 px-0">
         <SidebarContent workspace={workspace} />
       </SheetContent>
     </Sheet>

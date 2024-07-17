@@ -7,6 +7,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
+import { getSession } from "@/lib/session";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -14,9 +15,11 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const session = await getSession();
+  console.log({ session });
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>

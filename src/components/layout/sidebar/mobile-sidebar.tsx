@@ -3,11 +3,13 @@ import { AlignJustify } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import SidebarContent from "./sidebar-content";
-import { GetWorkspaceList } from "@/server/action/workspace/list";
+import { type Workspace } from "@/type/workspace";
 
-export default async function MobileSidebar() {
-  const workspace = await GetWorkspaceList();
+type MobileSidebar = {
+  workspace: Workspace[];
+};
 
+export default async function MobileSidebar({ workspace }: MobileSidebar) {
   return (
     <Sheet>
       <SheetTrigger asChild className="flex lg:hidden">

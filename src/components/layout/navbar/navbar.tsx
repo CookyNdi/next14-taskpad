@@ -6,8 +6,13 @@ import Profile from "../profile/profile";
 import MobileSidebar from "../sidebar/mobile-sidebar";
 import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/session";
+import { type Workspace } from "@/type/workspace";
 
-export default async function Navbar() {
+type NavbarProps = {
+  workspace: Workspace[];
+};
+
+export default async function Navbar({ workspace }: NavbarProps) {
   const session = await getSession();
   return (
     <div className="fixed top-0 z-[110] flex h-[60px] w-full items-center justify-between border-b bg-background/50 px-4 backdrop-blur-md lg:px-12">
@@ -23,7 +28,7 @@ export default async function Navbar() {
             <Button>Login</Button>
           </Link>
         )}
-        <MobileSidebar />
+        <MobileSidebar workspace={workspace} />
       </div>
     </div>
   );

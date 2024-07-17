@@ -54,3 +54,8 @@ export const ChangeAccountEmailSchema = z.object({
     message: "Password must be 8 characters long!",
   }),
 });
+
+export const ChangeAccountPasswordSchema = z.object({
+  password: z.string().min(1).max(20),
+  old_password: z.string().min(1).max(20),
+});

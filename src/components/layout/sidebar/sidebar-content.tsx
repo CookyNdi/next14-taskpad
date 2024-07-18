@@ -16,29 +16,31 @@ type SidebarContentProps = {
 export default function SidebarContent({ workspace }: SidebarContentProps) {
   const workspaceId = usePathname().slice(11);
   return (
-    <div className="flex flex-col bg-muted/40">
-      <div className="mb-2 flex items-center justify-between rounded-b-sm border-b bg-muted py-2 px-4">
-        <h1 className="font-semibold">Your Workspace : </h1>
+    <div className="flex flex-col">
+      <div className="flex items-center justify-between rounded-b-sm border-b px-4 py-2">
+        <h1 className=" text-lg font-semibold">Your Workspace : </h1>
         <CreateWorkspace>
           <Plus className="cursor-pointer" size={18} />
         </CreateWorkspace>
       </div>
-      <ScrollArea className="h-[calc(100dvh-56px)] pb-4">
+      <ScrollArea className="h-[calc(100dvh-86px)] pb-12">
         <div className="flex flex-col">
           {workspace.length > 0 ? (
             <>
-              {workspace.map((item) => (
-                <Link key={item.id} href={`/workspace/${item.id}`}>
-                  <div
-                    className={cn(
-                      "w-full rounded-sm px-4 py-2 text-primary",
-                      workspaceId === item.id && "bg-muted font-semibold",
-                    )}
-                  >
-                    {item.title}
-                  </div>
-                </Link>
-              ))}
+              {workspace.map(
+                (item) => (
+                  <Link key={item.id} href={`/workspace/${item.id}`}>
+                    <div
+                      className={cn(
+                        "w-full rounded-sm px-4 py-2 text-primary border-b hover:bg-muted",
+                        workspaceId === item.id && "bg-muted font-semibold",
+                      )}
+                    >
+                      {item.title}
+                    </div>
+                  </Link>
+                ),
+              )}
             </>
           ) : (
             <p>Workspace Not Found!</p>

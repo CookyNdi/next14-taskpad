@@ -1,7 +1,7 @@
 import { type Workspace } from "@/type/workspace";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import BoardCard from "../_components/board-card";
 
 type WorkspaceContentProps = {
   workspace: Workspace;
@@ -9,46 +9,27 @@ type WorkspaceContentProps = {
 
 export default function WorkspaceContent({ workspace }: WorkspaceContentProps) {
   return (
-    <div className="grid w-full grid-cols-1 gap-4 pb-20 lg:grid-cols-2">
-      {workspace.Board && workspace.Board.length > 0 ? (
-        <>
-          {workspace?.Board.map((data) => (
-            <Card className="h-[320px] space-y-2 p-4" key={data.id}>
-              <div className="flex items-center justify-between">
-                <h1 className="text-xl font-semibold capitalize">
-                  {data.title}
-                </h1>
-                {/* <Button size="sm">Expand</Button> */}
-              </div>
-              <ScrollArea className="mt-2 h-[calc(100%-56px)]">
-                <div className="flex flex-col gap-y-2 px-3">
-                  {data.Tasks && data.Tasks.length > 0 ? (
-                    <>
-                      {data.Tasks.map((item) => (
-                        <Button
-                          key={item.id}
-                          className="w-full"
-                          variant="outline"
-                        >
-                          {item.title}
-                        </Button>
-                      ))}
-                    </>
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <Button>Create Task</Button>
-                    </div>
-                  )}
-                </div>
-              </ScrollArea>
-            </Card>
-          ))}
-        </>
-      ) : (
-        <div>
-          <Button>Create Board</Button>
+    <div className="flex w-full flex-col gap-y-4 pb-12">
+      <div className="flex w-full items-center justify-between">
+        <h1 className="text-xl font-semibold">{workspace.title}</h1>
+        <Button>Create Board</Button>
+      </div>
+      <ScrollArea className="h-[cacl(100dvh-132px)] w-[cacl(100dvh-20%)] whitespace-nowrap rounded-md border">
+        <div className="flex gap-x-4 p-4">
+          {workspace.Board && workspace.Board.length > 0 ? (
+            <>
+              {workspace.Board.map((item) => (
+                <BoardCard key={item.id} board={item} />
+              ))}
+            </>
+          ) : (
+            <div className="flex w-full justify-center">
+              <p>Please add at least one board</p>
+            </div>
+          )}
         </div>
-      )}
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </div>
   );
 }

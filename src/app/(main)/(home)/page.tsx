@@ -11,7 +11,9 @@ export default async function HomePage() {
         <HomeContent workspace={workspace} />
       ) : (
         <div className="flex h-full w-full items-center justify-center">
-          <h1>Create at least one workspace</h1>
+          <h1 className="text-xl font-semibold">
+            Create at least one workspace
+          </h1>
         </div>
       )}
     </PageContainer>

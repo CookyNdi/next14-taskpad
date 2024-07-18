@@ -18,7 +18,9 @@ export default async function WorkSpacePage({ params }: WorkSpacePageProps) {
       {workspace ? (
         <WorkspaceContent workspace={workspace} />
       ) : (
-        <h1>Workspace Not Found!</h1>
+        <div className="flex h-full w-full items-center justify-center">
+          <h1 className="text-xl font-semibold">Workspace Not Found!</h1>
+        </div>
       )}
     </PageContainer>
   );

@@ -1,4 +1,6 @@
+import BoardOptions from "@/components/dropdown/board-options";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type Board } from "@/type/board";
 import { Ellipsis, Plus } from "lucide-react";
@@ -12,7 +14,12 @@ export default function BoardCard({ board }: BoardCardProps) {
     <Card className="h-[520px] w-[360px] space-y-2 overflow-hidden p-4">
       <div className="flex items-center justify-between border-b">
         <h1 className="pb-2 text-xl font-semibold capitalize">{board.title}</h1>
-        <Plus className="cursor-pointer" size={18} />
+        <div className="flex items-center gap-2">
+          <Plus className="cursor-pointer" size={18} />
+          <BoardOptions>
+            <Ellipsis className="cursor-pointer" size={18} />
+          </BoardOptions>
+        </div>
       </div>
       <div className="flex flex-col">
         <ScrollArea className="h-[calc(520px-44px)] w-[calc(360px-32px)]">
@@ -20,18 +27,19 @@ export default function BoardCard({ board }: BoardCardProps) {
             <>
               {board.Tasks.map((item) => (
                 <div
-                  className="group cursor-pointer overflow-hidden rounded-sm border-b pl-2 hover:bg-muted"
+                  className="group cursor-pointer overflow-hidden rounded-sm border-b px-2 hover:bg-muted"
                   key={item.id}
                 >
                   <div className="grid grid-cols-10 items-center justify-between gap-x-2">
-                    <div className="col-span-8 py-2">
+                    <div className="col-span-10 flex items-center gap-2 py-2">
+                      <Checkbox />
                       <p className="truncate" title={item.title}>
                         {item.title}
                       </p>
                     </div>
-                    <div className="col-span-2 flex h-full w-full items-center justify-center">
+                    {/* <div className="col-span-2 flex h-full w-full items-center justify-center">
                       <Ellipsis size={18} />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}

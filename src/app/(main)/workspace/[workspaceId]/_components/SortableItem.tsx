@@ -5,10 +5,11 @@ import { type HTMLAttributes } from "react";
 import { type Task } from "@/type/task";
 
 type Props = {
+  isDisabled: boolean;
   item: Task;
 } & HTMLAttributes<HTMLDivElement>;
 
-const SortableItem = ({ item, ...props }: Props) => {
+const SortableItem = ({ item, isDisabled, ...props }: Props) => {
   const {
     attributes,
     isDragging,
@@ -28,6 +29,7 @@ const SortableItem = ({ item, ...props }: Props) => {
   return (
     <Item
       item={item}
+      isDisabled={isDisabled}
       ref={setNodeRef}
       style={styles}
       isOpacityEnabled={isDragging}

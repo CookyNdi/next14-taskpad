@@ -1,17 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 import { type Task } from "@/type/task";
 import { type CSSProperties, forwardRef, type HTMLAttributes } from "react";
 
 type Props = {
   item: Task;
+  isDisabled: boolean;
   isOpacityEnabled?: boolean;
   isDragging?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
 // eslint-disable-next-line react/display-name
 const Item = forwardRef<HTMLDivElement, Props>(
-  ({ item, isOpacityEnabled, isDragging, style, ...props }, ref) => {
+  (
+    { item, isOpacityEnabled, isDisabled, isDragging, style, ...props },
+    ref,
+  ) => {
     const styles: CSSProperties = {
       opacity: isOpacityEnabled ? "0.4" : "1",
       cursor: isDragging ? "grabbing" : "grab",
@@ -23,13 +28,16 @@ const Item = forwardRef<HTMLDivElement, Props>(
     return (
       <div ref={ref} style={styles} {...props}>
         <div
-          className="group cursor-grab overflow-hidden rounded-sm border-b px-2 hover:bg-muted"
+          className={cn(
+            "group cursor-grab overflow-hidden rounded-sm border-b px-2 hover:bg-muted",
+            isDisabled && "cursor-default",
+          )}
           key={item.id}
         >
           <div className="grid grid-cols-10 items-center justify-between gap-x-2">
             <div className="col-span-10 flex items-center gap-2 py-2">
               <Checkbox />
-              <p className="truncate" title={item.title}>
+              <p className="truncate text-sm" title={item.title}>
                 {item.title}
               </p>
             </div>

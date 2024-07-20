@@ -22,10 +22,11 @@ import BoardOptions from "@/components/dropdown/board-options";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type Board } from "@/type/board";
-import { Ellipsis, Plus } from "lucide-react";
+import { Ellipsis, Pencil, Plus } from "lucide-react";
 import { type Task } from "@/type/task";
 import Item from "./item";
 import SortableItem from "./SortableItem";
+import { useToast } from "@/components/ui/use-toast";
 
 type BoardCardProps = {
   board: Board;
@@ -33,6 +34,9 @@ type BoardCardProps = {
 
 export default function BoardCard({ board }: BoardCardProps) {
   const [task, setTask] = useState<Task[]>(board.Tasks!);
+  const [disabled, setDisabled] = useState<boolean>(false);
+
+  const { toast } = useToast();
 
   // for drag overlay
   const [activeItem, setActiveItem] = useState<Task>();
@@ -79,15 +83,38 @@ export default function BoardCard({ board }: BoardCardProps) {
     const itemIds = task.map((item) => item.title);
     alert(itemIds);
   };
+
+  const handleDisabledDrag = () => {
+    if (disabled) {
+      setDisabled(false);
+      toast({
+        description: "Edit position enabled!",
+      });
+    } else {
+      setDisabled(true);
+      toast({
+        description: "Edit position disabled!",
+      });
+    }
+  };
   return (
     <Card className="h-[520px] w-[360px] space-y-2 overflow-hidden p-4">
       <div className="flex items-center justify-between border-b">
         <h1 className="pb-2 text-xl font-semibold capitalize">{board.title}</h1>
         <div className="flex items-center gap-2">
-          <Plus className="cursor-pointer" size={18} onClick={handleButtonClick} />
+          <Plus
+            className="cursor-pointer"
+            size={18}
+            onClick={handleButtonClick}
+          />
           <BoardOptions>
             <Ellipsis className="cursor-pointer" size={18} />
           </BoardOptions>
+          <Pencil
+            className="cursor-pointer"
+            onClick={() => handleDisabledDrag()}
+            size={16}
+          />
         </div>
       </div>
       <div className="flex flex-col">
@@ -98,12 +125,20 @@ export default function BoardCard({ board }: BoardCardProps) {
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}
         >
-          <SortableContext items={task} strategy={rectSortingStrategy}>
+          <SortableContext
+            items={task}
+            strategy={rectSortingStrategy}
+            disabled={disabled}
+          >
             <ScrollArea className="h-[calc(520px-44px)] w-[calc(360px-32px)]">
               {task.length > 0 ? (
                 <>
                   {task.map((item) => (
-                    <SortableItem key={item.id} item={item} />
+                    <SortableItem
+                      key={item.id}
+                      item={item}
+                      isDisabled={disabled}
+                    />
                   ))}
                 </>
               ) : (
@@ -114,7 +149,9 @@ export default function BoardCard({ board }: BoardCardProps) {
             </ScrollArea>
           </SortableContext>
           <DragOverlay adjustScale style={{ transformOrigin: "0 0 " }}>
-            {activeItem ? <Item item={activeItem} isDragging /> : null}
+            {activeItem ? (
+              <Item item={activeItem} isDragging isDisabled={false} />
+            ) : null}
           </DragOverlay>
         </DndContext>
       </div>

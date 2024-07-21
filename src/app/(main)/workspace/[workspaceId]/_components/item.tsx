@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { Checkbox } from "@/components/ui/checkbox";
+import MyTooltip from "@/components/ui/my-tooltip";
 import { cn } from "@/lib/utils";
 import { type Task } from "@/type/task";
+import { AlignJustify } from "lucide-react";
 import { type CSSProperties, forwardRef, type HTMLAttributes } from "react";
 
 type Props = {
@@ -29,17 +30,17 @@ const Item = forwardRef<HTMLDivElement, Props>(
       <div ref={ref} style={styles} {...props}>
         <div
           className={cn(
-            "group cursor-grab overflow-hidden rounded-sm border-b px-2 hover:bg-muted",
+            "group cursor-move overflow-hidden rounded-sm border-b px-2 hover:bg-muted",
             isDisabled && "cursor-default",
           )}
           key={item.id}
         >
           <div className="grid grid-cols-10 items-center justify-between gap-x-2">
             <div className="col-span-10 flex items-center gap-2 py-2">
-              <Checkbox />
-              <p className="truncate text-sm" title={item.title}>
-                {item.title}
-              </p>
+              <div>{!isDisabled && <AlignJustify size={18} />}</div>
+              <MyTooltip message={item.title}>
+                <p className="truncate text-sm">{item.title}</p>
+              </MyTooltip>
             </div>
             {/* <div className="col-span-2 flex h-full w-full items-center justify-center">
                       <Ellipsis size={18} />

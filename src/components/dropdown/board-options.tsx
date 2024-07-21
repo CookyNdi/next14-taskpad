@@ -17,11 +17,9 @@ export default function BoardOptions({ children }: BoardOptionsProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>Options</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Edit</DropdownMenuItem>
         <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

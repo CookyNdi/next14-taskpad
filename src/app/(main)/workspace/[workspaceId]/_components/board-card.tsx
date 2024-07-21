@@ -137,7 +137,7 @@ export default function BoardCard({ board }: BoardCardProps) {
             </MyTooltip>
             <MyTooltip message="Edit Board">
               <div>
-                <EditBoard>
+                <EditBoard board={board}>
                   <Pencil className="cursor-pointer" size={18} />
                 </EditBoard>
               </div>

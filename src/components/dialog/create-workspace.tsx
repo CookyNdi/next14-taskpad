@@ -62,6 +62,7 @@ export default function CreateWorkspace({ children }: CreateWorkspaceProps) {
               title: "Success!",
               description: data.success,
             });
+            form.reset();
             setOpen(false);
             router.refresh();
           }

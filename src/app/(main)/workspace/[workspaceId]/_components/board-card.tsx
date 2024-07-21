@@ -33,7 +33,6 @@ import MyTooltip from "@/components/ui/my-tooltip";
 import SaveButton from "./save-button";
 import EditBoard from "@/components/dialog/edit-board";
 import { Separator } from "@/components/ui/separator";
-import CreateBoard from "@/components/dialog/create-board";
 
 type BoardCardProps = {
   board: Board;
@@ -116,9 +115,7 @@ export default function BoardCard({ board }: BoardCardProps) {
           <div className="flex items-center gap-2">
             <MyTooltip message="Add Task">
               <div>
-                <CreateBoard>
-                  <Plus className="cursor-pointer" size={18} />
-                </CreateBoard>
+                <Plus className="cursor-pointer" size={18} />
               </div>
             </MyTooltip>
             <MyTooltip message="Order Task">

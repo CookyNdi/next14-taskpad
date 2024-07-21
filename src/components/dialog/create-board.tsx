@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,12 +27,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { CreateBoardSchema } from "@/schema/board";
 import { Textarea } from "../ui/textarea";
+import { useToast } from "../ui/use-toast";
+import { createBoard } from "@/server/action/board/create";
 
 type CreateBoardProps = {
   children: React.ReactNode;
+  workspaceId: string;
 };
 
-export default function CreateBoard({ children }: CreateBoardProps) {
+export default function CreateBoard({
+  children,
+  workspaceId,
+}: CreateBoardProps) {
+  const [open, setOpen] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof CreateBoardSchema>>({
     resolver: zodResolver(CreateBoardSchema),
     defaultValues: {
@@ -39,11 +50,39 @@ export default function CreateBoard({ children }: CreateBoardProps) {
     },
   });
 
+  const { toast } = useToast();
+  const router = useRouter();
+
   function onSubmit(values: z.infer<typeof CreateBoardSchema>) {
-    console.log(values);
+    startTransition(() => {
+      createBoard(values, workspaceId)
+        .then((data) => {
+          if (data.error) {
+            toast({
+              title: "Error!",
+              description: data.error,
+            });
+          }
+          if (data.success) {
+            toast({
+              title: "Success!",
+              description: data.success,
+            });
+            setOpen(false);
+            form.reset();
+            router.refresh();
+          }
+        })
+        .catch(() => {
+          toast({
+            title: "Error!",
+            description: "Something went wrong",
+          });
+        });
+    });
   }
   return (
-    <Dialog>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-h-[420px] sm:max-w-[425px]">
         <DialogHeader>
@@ -57,6 +96,7 @@ export default function CreateBoard({ children }: CreateBoardProps) {
           >
             <FormField
               control={form.control}
+              disabled={isPending}
               name="title"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-4 items-center gap-4">
@@ -70,6 +110,7 @@ export default function CreateBoard({ children }: CreateBoardProps) {
             />
             <FormField
               control={form.control}
+              disabled={isPending}
               name="description"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-4 items-center gap-4">
@@ -82,7 +123,9 @@ export default function CreateBoard({ children }: CreateBoardProps) {
               )}
             />
             <DialogFooter>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit" disabled={isPending}>
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </Form>

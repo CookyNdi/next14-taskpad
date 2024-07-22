@@ -1,6 +1,6 @@
 import PageContainer from "@/components/layout/page-container/page-container";
 import { GetWorkspaceList } from "@/server/action/workspace/list";
-import HomeContent from "./components/content";
+import HomeContent from "./_components/content";
 
 export default async function HomePage() {
   const workspace = await GetWorkspaceList();

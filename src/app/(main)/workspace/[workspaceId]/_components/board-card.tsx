@@ -33,6 +33,7 @@ import MyTooltip from "@/components/ui/my-tooltip";
 import SaveButton from "./save-button";
 import EditBoard from "@/components/dialog/edit-board";
 import { Separator } from "@/components/ui/separator";
+import CreateTask from "@/components/dialog/create-task";
 
 type BoardCardProps = {
   board: Board;
@@ -115,7 +116,13 @@ export default function BoardCard({ board }: BoardCardProps) {
           <div className="flex items-center gap-2">
             <MyTooltip message="Add Task">
               <div>
-                <Plus className="cursor-pointer" size={18} />
+                <CreateTask
+                  workspaceId={board.workspaceId}
+                  boardId={board.id}
+                  title={board.title}
+                >
+                  <Plus className="cursor-pointer" size={18} />
+                </CreateTask>
               </div>
             </MyTooltip>
             <MyTooltip message="Order Task">
@@ -151,14 +158,12 @@ export default function BoardCard({ board }: BoardCardProps) {
             </MyTooltip>
           </div>
         </div>
-        <MyTooltip message={board.description}>
-          <p
-            className="truncate text-sm text-muted-foreground"
-            title={board.description}
-          >
-            {board.description}
-          </p>
-        </MyTooltip>
+        <p
+          className="truncate text-sm text-muted-foreground"
+          title={board.description}
+        >
+          {board.description}
+        </p>
         <Separator />
         <div className="flex flex-col">
           <DndContext

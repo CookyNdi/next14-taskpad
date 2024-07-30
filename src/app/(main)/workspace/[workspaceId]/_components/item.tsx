@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import MyTooltip from "@/components/ui/my-tooltip";
 import { cn } from "@/lib/utils";
 import { type Task } from "@/type/task";
 import { AlignJustify } from "lucide-react";
@@ -38,9 +37,9 @@ const Item = forwardRef<HTMLDivElement, Props>(
           <div className="grid grid-cols-10 items-center justify-between gap-x-2">
             <div className="col-span-10 flex items-center gap-2 py-2">
               <div>{!isDisabled && <AlignJustify size={18} />}</div>
-              <MyTooltip message={item.title}>
-                <p className="truncate text-sm">{item.title}</p>
-              </MyTooltip>
+              <p className="truncate text-sm" title={item.title}>
+                {item.title}
+              </p>
             </div>
             {/* <div className="col-span-2 flex h-full w-full items-center justify-center">
                       <Ellipsis size={18} />
